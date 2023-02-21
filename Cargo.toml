@@ -1,0 +1,29 @@
+[package]
+name = "bevy_ui_bits"
+version = "0.1.0"
+authors = ["Orlando Valverde <orlando.jesig.va@gmail.com>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "A mingy and opinated collection of UI components for Bevy"
+homepage = "https://github.com/septum/bevy_ui_bits"
+repository = "https://github.com/septum/bevy_ui_bits"
+documentation = "https://docs.rs/bevy_ui_bits"
+readme = "README.md"
+keywords = ["bevy", "ui", "components"]
+categories = ["game-development"]
+exclude = ["assets/"]
+
+[dependencies.bevy]
+version = "0.9.1"
+default-features = false
+features = ["bevy_ui", "bevy_render", "bevy_asset", "bevy_text"]
+
+[[example]]
+name = "main_menu"
+path = "examples/main_menu.rs"
+required-features = ["bevy/bevy_core_pipeline", "bevy/bevy_sprite", "bevy/bevy_winit"]
+
+[[example]]
+name = "hud"
+path = "examples/hud.rs"
+required-features = ["bevy/bevy_core_pipeline", "bevy/bevy_sprite", "bevy/bevy_winit"]
