@@ -62,7 +62,7 @@ fn spawn_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
 Try it out with:
 
 ```
-cargo run --example main_menu --features="bevy/bevy_core_pipeline,bevy/bevy_sprite,bevy/bevy_winit"
+cargo run --example main_menu --features="bevy/default"
 ```
 
 ### Simple HUD that features a dynamic text component
@@ -72,13 +72,14 @@ cargo run --example main_menu --features="bevy/bevy_core_pipeline,bevy/bevy_spri
 Try it out with:
 
 ```
-cargo run --example hud --features="bevy/bevy_core_pipeline,bevy/bevy_sprite,bevy/bevy_winit"
+cargo run --example hud --features="bevy/default"
 ```
 
 ## Bevy Compatibility
 
 | Bevy | bevy_ui_bits |
 | ---- | ------------ |
+| 0.10 | 0.2          |
 | 0.9  | 0.1          |
 
 ## License

@@ -17,7 +17,7 @@ impl Default for EmbossedText {
         };
         EmbossedText {
             bundle: TextBundle::from_section(String::new(), style)
-                .with_text_alignment(TextAlignment::CENTER),
+                .with_text_alignment(TextAlignment::Center),
             background_color: Color::BLACK,
         }
     }

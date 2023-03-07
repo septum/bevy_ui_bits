@@ -5,24 +5,24 @@ const PLAY_BUTTON_ID: usize = 1;
 const QUIT_BUTTON_ID: usize = 2;
 
 #[derive(Resource)]
-struct SelectedButton(pub usize);
+struct SelectedButton {
+    pub id: usize,
+}
 
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
-            window: WindowDescriptor {
+            primary_window: Some(Window {
                 title: "Main Menu Example".to_string(),
                 ..default()
-            },
+            }),
             ..default()
         }))
-        .insert_resource(SelectedButton(PLAY_BUTTON_ID))
+        .insert_resource(SelectedButton { id: PLAY_BUTTON_ID })
         .add_startup_system(spawn_camera)
         .add_startup_system(spawn_main_menu)
         .add_system(close_on_esc)
-        .add_system(handle_keyboard_input)
-        .add_system(handle_mouse_input)
-        .add_system(update_buttons)
+        .add_systems((handle_keyboard_input, handle_mouse_input, update_buttons).chain())
         .run();
 }
 
@@ -56,7 +56,6 @@ fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
     bottom_wrapper.justify_between();
 
     play.id(PLAY_BUTTON_ID).selected_color(Color::GOLD);
-
     quit.id(QUIT_BUTTON_ID);
 
     root.spawn(&mut commands, |parent| {
@@ -78,18 +77,20 @@ fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
 }
 
 fn handle_keyboard_input(
-    keys: Res<Input<KeyCode>>,
+    mut keys: ResMut<Input<KeyCode>>,
     mut selected_button: ResMut<SelectedButton>,
     query: Query<&UiButtonData>,
 ) {
     if keys.just_pressed(KeyCode::Up) || keys.just_pressed(KeyCode::Down) {
         for button_data in &query {
-            if button_data.id == selected_button.0 {
-                if button_data.id == PLAY_BUTTON_ID {
-                    selected_button.0 = QUIT_BUTTON_ID;
+            if button_data.id == selected_button.id {
+                selected_button.id = if button_data.id == PLAY_BUTTON_ID {
+                    QUIT_BUTTON_ID
                 } else {
-                    selected_button.0 = PLAY_BUTTON_ID;
-                }
+                    PLAY_BUTTON_ID
+                };
+                keys.clear();
+                break;
             }
         }
     }
@@ -101,7 +102,7 @@ fn handle_mouse_input(
 ) {
     for (button_data, interaction) in &query {
         match *interaction {
-            Interaction::Hovered => selected_button.0 = button_data.id,
+            Interaction::Hovered => selected_button.id = button_data.id,
             _ => {}
         }
     }
@@ -112,7 +113,7 @@ fn update_buttons(
     mut query: Query<(&UiButtonData, &mut BackgroundColor)>,
 ) {
     for (button_data, mut background_color) in &mut query {
-        if button_data.id == selected_button.0 {
+        if button_data.id == selected_button.id {
             *background_color = Color::GOLD.into();
         } else {
             *background_color = Color::NONE.into();

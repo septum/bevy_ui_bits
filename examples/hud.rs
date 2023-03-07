@@ -6,10 +6,10 @@ const JUMPS_TEXT_ID: usize = 1;
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
-            window: WindowDescriptor {
+            primary_window: Some(Window {
                 title: "HUD Example".to_string(),
                 ..default()
-            },
+            }),
             ..default()
         }))
         .add_startup_system(spawn_camera)

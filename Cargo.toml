@@ -1,6 +1,6 @@
 [package]
 name = "bevy_ui_bits"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Orlando Valverde <orlando.jesig.va@gmail.com>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
@@ -14,16 +14,16 @@ categories = ["game-development"]
 exclude = ["assets/"]
 
 [dependencies.bevy]
-version = "0.9.1"
+version = "0.10"
 default-features = false
 features = ["bevy_ui", "bevy_render", "bevy_asset", "bevy_text"]
 
 [[example]]
 name = "main_menu"
 path = "examples/main_menu.rs"
-required-features = ["bevy/bevy_core_pipeline", "bevy/bevy_sprite", "bevy/bevy_winit"]
+required-features = ["bevy/default"]
 
 [[example]]
 name = "hud"
 path = "examples/hud.rs"
-required-features = ["bevy/bevy_core_pipeline", "bevy/bevy_sprite", "bevy/bevy_winit"]
+required-features = ["bevy/default"]
