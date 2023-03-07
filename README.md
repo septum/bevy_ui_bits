@@ -3,7 +3,7 @@
 [![crates.io](https://img.shields.io/crates/v/bevy_ui_bits)](https://crates.io/crates/bevy_ui_bits)
 [![license](https://img.shields.io/crates/l/bevy_ui_bits)](https://crates.io/crates/bevy_ui_bits)
 
-A mingy and opinated collection of UI components for Bevy
+A mingy and opinionated collection of UI components for Bevy
 
 ## Usage
 

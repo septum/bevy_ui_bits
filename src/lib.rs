@@ -1,4 +1,4 @@
-//! A mingy and opinated collection of UI components for Bevy
+//! A mingy and opinionated collection of UI components for Bevy
 
 #![deny(missing_docs)]
 #![deny(clippy::all)]
