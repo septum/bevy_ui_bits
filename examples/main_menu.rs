@@ -1,4 +1,4 @@
-use bevy::{prelude::*, window::close_on_esc};
+use bevy::{prelude::*, text::DEFAULT_FONT_HANDLE, window::close_on_esc};
 use bevy_ui_bits::*;
 
 const PLAY_BUTTON_ID: usize = 1;
@@ -19,10 +19,12 @@ fn main() {
             ..default()
         }))
         .insert_resource(SelectedButton { id: PLAY_BUTTON_ID })
-        .add_startup_system(spawn_camera)
-        .add_startup_system(spawn_main_menu)
-        .add_system(close_on_esc)
-        .add_systems((handle_keyboard_input, handle_mouse_input, update_buttons).chain())
+        .add_systems(Startup, (spawn_camera, spawn_main_menu))
+        .add_systems(Update, close_on_esc)
+        .add_systems(
+            Update,
+            (handle_keyboard_input, handle_mouse_input, update_buttons).chain(),
+        )
         .run();
 }
 
@@ -30,8 +32,8 @@ fn spawn_camera(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
 }
 
-fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let font = &asset_server.load("fonts/FiraMono-Medium.ttf");
+fn spawn_main_menu(mut commands: Commands) {
+    let font = &DEFAULT_FONT_HANDLE.typed::<Font>();
 
     let root = Root::congregated();
 

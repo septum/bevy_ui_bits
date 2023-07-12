@@ -32,7 +32,7 @@ fn spawn_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
     // EmbossedText represents text with a background relief
     let mut title = EmbossedText::large("My Game", font);
 
-    // UiButton wraps over a ButtonBundle with opinated defaults
+    // UiButton wraps over a ButtonBundle with opinionated defaults
     let mut play = UiButton::new("Start", font);
 
     let by = SimpleText::small("By me", font);
@@ -75,10 +75,21 @@ Try it out with:
 cargo run --example hud --features="bevy/default"
 ```
 
+### Despawn UI recursively with the `RootMarker`
+
+![despawn](https://github.com/septum/bevy_ui_bits/assets/4467518/a873033b-f709-4c15-8842-a93829ccd483)
+
+Try it out with:
+
+```
+cargo run --example despawn --features="bevy/default"
+```
+
 ## Bevy Compatibility
 
-| Bevy | bevy_ui_bits |
+| bevy | bevy_ui_bits |
 | ---- | ------------ |
+| 0.11 | 0.3          |
 | 0.10 | 0.2          |
 | 0.9  | 0.1          |
 

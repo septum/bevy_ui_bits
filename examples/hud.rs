@@ -1,4 +1,4 @@
-use bevy::{prelude::*, window::close_on_esc};
+use bevy::{prelude::*, text::DEFAULT_FONT_HANDLE, window::close_on_esc};
 use bevy_ui_bits::*;
 
 const JUMPS_TEXT_ID: usize = 1;
@@ -12,10 +12,8 @@ fn main() {
             }),
             ..default()
         }))
-        .add_startup_system(spawn_camera)
-        .add_startup_system(spawn_hud)
-        .add_system(handle_input)
-        .add_system(close_on_esc)
+        .add_systems(Startup, (spawn_camera, spawn_hud))
+        .add_systems(Update, (handle_input, close_on_esc))
         .run();
 }
 
@@ -23,8 +21,8 @@ fn spawn_camera(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
 }
 
-fn spawn_hud(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let font = &asset_server.load("fonts/FiraMono-Medium.ttf");
+fn spawn_hud(mut commands: Commands) {
+    let font = &DEFAULT_FONT_HANDLE.typed::<Font>();
 
     let root = Root::dispersed();
     let mut top_container = Container::auto_height();

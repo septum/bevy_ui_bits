@@ -21,7 +21,8 @@ pub struct UiButtonData {
 impl Default for UiButton {
     fn default() -> UiButton {
         let style = Style {
-            size: Size::new(Val::Px(400.0), Val::Px(60.0)),
+            width: Val::Px(400.0),
+            height: Val::Px(60.0),
             justify_content: JustifyContent::Center,
             align_items: AlignItems::Center,
             ..default()
@@ -51,10 +52,16 @@ impl UiButton {
     /// Creates a square [UiButton] with the provided string value and font handle
     pub fn square<S: Into<String> + Clone>(value: S, font: &Handle<Font>) -> UiButton {
         let mut button = Self::default();
-        button.bundle.style.size.width = Val::Px(60.0);
-        button.bundle.style.size.height = Val::Px(60.0);
+        button.bundle.style.width = Val::Px(60.0);
+        button.bundle.style.height = Val::Px(60.0);
         button.child = EmbossedText::medium(value, font);
         button
+    }
+
+    /// Sets text color with the provided [Color]
+    pub fn color(&mut self, color: Color) -> &mut UiButton {
+        self.child.color(color);
+        self
     }
 
     /// Sets background color with the provided [Color]
@@ -65,13 +72,13 @@ impl UiButton {
 
     /// Sets width with the provided width in pixels
     pub fn width(&mut self, width: f32) -> &mut UiButton {
-        self.bundle.style.size.width = Val::Px(width);
+        self.bundle.style.width = Val::Px(width);
         self
     }
 
     /// Sets height with the provided height in pixels
     pub fn height(&mut self, height: f32) -> &mut UiButton {
-        self.bundle.style.size.height = Val::Px(height);
+        self.bundle.style.height = Val::Px(height);
         self
     }
 

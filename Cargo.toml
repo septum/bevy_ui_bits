@@ -1,6 +1,6 @@
 [package]
 name = "bevy_ui_bits"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Orlando Valverde <orlando.jesig.va@gmail.com>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
@@ -14,7 +14,7 @@ categories = ["game-development"]
 exclude = ["assets/"]
 
 [dependencies.bevy]
-version = "0.10"
+version = "0.11"
 default-features = false
 features = ["bevy_ui", "bevy_render", "bevy_asset", "bevy_text"]
 
