@@ -95,6 +95,7 @@ cargo run --example despawn --features="bevy/default"
 
 | bevy | bevy_ui_bits |
 | ---- | ------------ |
+| 0.15 | 0.7          |
 | 0.14 | 0.6          |
 | 0.13 | 0.5          |
 | 0.12 | 0.4          |
