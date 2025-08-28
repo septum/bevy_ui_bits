@@ -9,7 +9,7 @@ fn main() {
 }
 
 fn spawn_ui(mut commands: Commands) {
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn(Camera2d::default());
 
     let font = &Handle::default();
 

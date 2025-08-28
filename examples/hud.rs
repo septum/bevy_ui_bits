@@ -18,7 +18,7 @@ fn main() {
 }
 
 fn spawn_camera(mut commands: Commands) {
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn(Camera2d::default());
 }
 
 fn spawn_hud(mut commands: Commands) {
@@ -34,9 +34,9 @@ fn spawn_hud(mut commands: Commands) {
 
     top_container.row().justify_between();
 
-    level
-        .color(palettes::css::GOLD.into())
-        .background_color(palettes::css::BLACK.into());
+    level.color(palettes::css::GOLD.into());
+    level.background_color(palettes::css::BLACK.into());
+
     jumps.id(JUMPS_TEXT_ID).dynamic_text_value("0");
 
     root.spawn(&mut commands, |parent| {
@@ -51,17 +51,19 @@ fn spawn_hud(mut commands: Commands) {
 }
 
 fn handle_input(
+    mut writer: TextUiWriter,
     mut keyboard_input_events: EventReader<KeyboardInput>,
-    mut texts: Query<(&mut Text, &DynamicTextData)>,
+    mut texts: Query<(Entity, &DynamicTextData)>,
 ) {
     for event in keyboard_input_events.read() {
         if event.state.is_pressed() {
             match event.key_code {
                 KeyCode::Space => {
-                    for (mut text, data) in texts.iter_mut() {
+                    for (entity, data) in texts.iter_mut() {
                         if matches!(data.id, JUMPS_TEXT_ID) {
-                            text.sections[1].value =
-                                format!("{}", text.sections[1].value.parse::<usize>().unwrap() + 1);
+                            if let Some(mut text) = writer.get_text(entity, 1) {
+                                *text = format!("{}", text.as_str().parse::<usize>().unwrap() + 1);
+                            }
                         }
                     }
                 }

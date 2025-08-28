@@ -2,57 +2,82 @@ use bevy::prelude::*;
 
 use super::UiText;
 
+/// Data for the dynamic text component
+#[derive(Component, Default)]
+pub struct DynamicTextData {
+    /// ID of the text
+    pub id: usize,
+}
+
 /// Dynamic text component
 pub struct DynamicText {
     data: DynamicTextData,
-    bundle: TextBundle,
-}
-
-/// Marker component with an id associated to a [DynamicText]
-#[derive(Component, Default)]
-pub struct DynamicTextData {
-    /// [DynamicText] identifier
-    pub id: usize,
+    text: Text,
+    span: TextSpan,
+    font: TextFont,
+    color: TextColor,
+    layout: TextLayout,
 }
 
 impl Default for DynamicText {
     fn default() -> DynamicText {
-        let section = TextSection {
-            value: String::new(),
-            style: TextStyle {
-                font: Handle::default(),
-                font_size: DynamicText::SIZE_MEDIUM,
-                color: Color::WHITE,
-            },
+        let font = TextFont {
+            font: Handle::default(),
+            font_size: DynamicText::SIZE_MEDIUM,
+            ..default()
         };
+        let color = TextColor(Color::WHITE);
+        let text = Text::new("");
+        let span = TextSpan::new("");
+        let layout = TextLayout::new_with_justify(JustifyText::Center);
+
         DynamicText {
             data: DynamicTextData::default(),
-            bundle: TextBundle::from_sections(vec![section; 2])
-                .with_text_justify(JustifyText::Center),
+            text,
+            span,
+            font,
+            color,
+            layout,
         }
     }
 }
 
 impl UiText for DynamicText {
-    fn text_bundle(&mut self) -> &mut TextBundle {
-        &mut self.bundle
+    fn spawn(self, parent: &mut ChildBuilder) {
+        parent
+            .spawn((
+                self.text,
+                self.font.clone(),
+                self.color,
+                self.layout,
+                self.data,
+            ))
+            .with_child((self.span, self.font, self.color, self.layout));
     }
 
-    fn spawn(self, parent: &mut ChildBuilder) {
-        parent.spawn(self.bundle).insert(self.data);
+    fn color(&mut self, color: TextColor) {
+        self.color = color;
+    }
+
+    fn font(&mut self, font: TextFont) {
+        self.font = font;
+    }
+
+    fn text(&mut self, text: Text) {
+        self.text = text;
     }
 }
 
 impl DynamicText {
-    /// Sets id of [DynamicTextData] with the provided id
+    /// Method to change the id of the text component
     pub fn id(&mut self, id: usize) -> &mut DynamicText {
         self.data.id = id;
         self
     }
 
-    /// Sets a default dynamic value
+    /// Set the initial dynamic text value
     pub fn dynamic_text_value<S: Into<String> + Clone>(&mut self, text: S) -> &mut DynamicText {
-        self.bundle.text.sections[1].value = text.into();
+        self.span.0 = text.into();
         self
     }
 }

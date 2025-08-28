@@ -22,72 +22,68 @@ pub trait UiText: Default {
     /// Extra large text size
     const SIZE_EXTRA_LARGE: f32 = 108.0;
 
-    /// Utility method to simplify work on multiple text sections
-    fn for_each_section(&mut self, f: impl FnMut(&mut TextSection)) {
-        self.text_bundle().text.sections.iter_mut().for_each(f);
-    }
-
     /// Create a [UiText::SIZE_SMALL] variant of the implementation
     fn small<S: Into<String> + Clone>(value: S, font: &Handle<Font>) -> Self {
-        let mut game_text = Self::default();
+        let mut ui_text = Self::default();
 
-        game_text.for_each_section(|section| {
-            section.value = value.clone().into();
-            section.style.font = font.clone();
-            section.style.font_size = Self::SIZE_SMALL;
+        ui_text.font(TextFont {
+            font: font.clone(),
+            font_size: Self::SIZE_SMALL,
+            ..default()
         });
-
-        game_text
+        ui_text.text(Text::new(value));
+        ui_text
     }
 
     /// Create a [UiText::SIZE_MEDIUM] variant of the implementation
     fn medium<S: Into<String> + Clone>(value: S, font: &Handle<Font>) -> Self {
-        let mut game_text = Self::default();
+        let mut ui_text = Self::default();
 
-        game_text.for_each_section(|section| {
-            section.value = value.clone().into();
-            section.style.font = font.clone();
-            section.style.font_size = Self::SIZE_MEDIUM;
+        ui_text.font(TextFont {
+            font: font.clone(),
+            font_size: Self::SIZE_MEDIUM,
+            ..default()
         });
-
-        game_text
+        ui_text.text(Text::new(value));
+        ui_text
     }
 
     /// Create a [UiText::SIZE_LARGE] variant of the implementation
     fn large<S: Into<String> + Clone>(value: S, font: &Handle<Font>) -> Self {
-        let mut game_text = Self::default();
+        let mut ui_text = Self::default();
 
-        game_text.for_each_section(|section| {
-            section.value = value.clone().into();
-            section.style.font = font.clone();
-            section.style.font_size = Self::SIZE_LARGE;
+        ui_text.font(TextFont {
+            font: font.clone(),
+            font_size: Self::SIZE_LARGE,
+            ..default()
         });
+        ui_text.text(Text::new(value));
 
-        game_text
+        ui_text
     }
 
     /// Create a [UiText::SIZE_EXTRA_LARGE] variant of the implementation
     fn extra_large<S: Into<String> + Clone>(value: S, font: &Handle<Font>) -> Self {
-        let mut game_text = Self::default();
+        let mut ui_text = Self::default();
 
-        game_text.for_each_section(|section| {
-            section.value = value.clone().into();
-            section.style.font = font.clone();
-            section.style.font_size = Self::SIZE_EXTRA_LARGE;
+        ui_text.font(TextFont {
+            font: font.clone(),
+            font_size: Self::SIZE_EXTRA_LARGE,
+            ..default()
         });
+        ui_text.text(Text::new(value));
 
-        game_text
+        ui_text
     }
 
-    /// Sets color for each section of the implementation with the provided [Color]
-    fn color(&mut self, color: Color) -> &mut Self {
-        self.for_each_section(|section| section.style.color = color);
-        self
-    }
+    /// Get a mut ref of the color of the component
+    fn color(&mut self, color: TextColor);
 
-    /// Utility method that provides a mutable reference
-    /// to the underlaying [TextBundle] of the implementation
-    fn text_bundle(&mut self) -> &mut TextBundle;
+    /// Get a mut ref of the font of the component
+    fn font(&mut self, font: TextFont);
+
+    /// Get a mut ref of the inner text component
+    fn text(&mut self, text: Text);
 
     /// Spawns the underlaying bundle with the provided parent (mutable reference to [ChildBuilder])
     fn spawn(self, parent: &mut ChildBuilder);

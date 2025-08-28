@@ -3,6 +3,8 @@
 #![deny(missing_docs)]
 #![deny(clippy::all)]
 #![deny(clippy::cargo)]
+// TODO: Remove this
+// #![allow(clippy::multiple_crate_versions)]
 
 mod components;
 mod layout;

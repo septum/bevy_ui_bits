@@ -13,24 +13,22 @@ pub struct RootMarker;
 
 /// Top parent component that acts as a UI overlay
 pub struct Root {
-    bundle: NodeBundle,
+    node: Node,
+    background_color: BackgroundColor,
 }
 
 impl Default for Root {
     fn default() -> Root {
         Root {
-            bundle: NodeBundle {
-                style: Style {
-                    width: Val::Percent(100.0),
-                    height: Val::Percent(100.0),
-                    flex_direction: FlexDirection::Column,
-                    justify_content: JustifyContent::Center,
-                    align_items: AlignItems::Center,
-                    ..default()
-                },
-                background_color: Color::NONE.into(),
+            node: Node {
+                height: Val::Percent(100.0),
+                width: Val::Percent(100.0),
+                flex_direction: FlexDirection::Column,
+                justify_content: JustifyContent::Center,
+                align_items: AlignItems::Center,
                 ..default()
             },
+            background_color: BackgroundColor(Color::NONE),
         }
     }
 }
@@ -46,14 +44,14 @@ impl Root {
     /// Creates a [Root] that disperses its content
     pub fn dispersed() -> Root {
         let mut root = Root::default();
-        root.bundle.style.justify_content = JustifyContent::SpaceBetween;
-        root.bundle.style.padding = DISPERSED_CONTAINER_PADDING;
+        root.node.justify_content = JustifyContent::SpaceBetween;
+        root.node.padding = DISPERSED_CONTAINER_PADDING;
         root
     }
 
     /// Sets background color with the provided [Color]
     pub fn background_color(&mut self, color: Color) -> &mut Root {
-        self.bundle.background_color = color.into();
+        self.background_color = color.into();
         self
     }
 
@@ -62,7 +60,7 @@ impl Root {
     /// [Root] additionaly takes a mutable reference to [Commands]
     pub fn spawn(self, commands: &mut Commands, spawn_children: impl FnOnce(&mut ChildBuilder)) {
         commands
-            .spawn(self.bundle)
+            .spawn((self.node, self.background_color))
             .with_children(spawn_children)
             .insert(RootMarker);
     }

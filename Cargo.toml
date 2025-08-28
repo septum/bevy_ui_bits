@@ -2,7 +2,7 @@
 name = "bevy_ui_bits"
 version = "0.6.0"
 authors = ["Orlando Valverde <orlando.jesig.va@gmail.com>"]
-edition = "2021"
+edition = "2024"
 license = "MIT OR Apache-2.0"
 description = "A mingy and opinionated collection of UI components for Bevy "
 homepage = "https://github.com/septum/bevy_ui_bits"
@@ -13,7 +13,7 @@ keywords = ["bevy", "ui", "components"]
 categories = ["game-development"]
 
 [dependencies.bevy]
-version = "0.14"
+version = "0.15"
 default-features = false
 features = ["bevy_ui"]
 
