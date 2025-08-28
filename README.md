@@ -14,14 +14,14 @@ use bevy_ui_bits::*;
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
-        .add_startup_system(spawn_ui)
+        .add_systems(Startup, spawn_ui)
         .run();
 }
 
-fn spawn_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
+fn spawn_ui(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
 
-    let font = &asset_server.load("fonts/FiraMono-Medium.ttf");
+    let font = &Handle::default();
 
     // Root is the encompassing component for a given UI tree
     let root = Root::congregated();
@@ -39,7 +39,7 @@ fn spawn_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
 
     // Make changes to the properties with a fluent interface
     main_container.justify_between();
-    title.color(Color::MIDNIGHT_BLUE);
+    title.color(Color::YELLOW);
     play.selected_color(Color::MIDNIGHT_BLUE);
 
     // Use a nested structure to spawn the UI tree
@@ -51,6 +51,12 @@ fn spawn_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
         });
     });
 }
+```
+
+Try it out with:
+
+```
+cargo run --example readme --features="bevy/default"
 ```
 
 ## Examples

@@ -31,3 +31,8 @@ required-features = ["bevy/default"]
 name = "despawn"
 path = "examples/despawn.rs"
 required-features = ["bevy/default"]
+
+[[example]]
+name = "readme"
+path = "examples/readme.rs"
+required-features = ["bevy/default"]
