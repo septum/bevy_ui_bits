@@ -1,4 +1,4 @@
-use bevy::{prelude::*, text::DEFAULT_FONT_HANDLE, window::close_on_esc};
+use bevy::{prelude::*, window::close_on_esc};
 use bevy_ui_bits::*;
 
 const DESPAWN_BUTTON_ID: usize = 1;
@@ -22,7 +22,7 @@ fn spawn_camera(mut commands: Commands) {
 }
 
 fn spawn_main_menu(mut commands: Commands) {
-    let font = &DEFAULT_FONT_HANDLE.typed::<Font>();
+    let font = &Handle::default();
 
     let root = Root::congregated();
 
