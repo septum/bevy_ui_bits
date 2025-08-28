@@ -1,4 +1,4 @@
-use bevy::{prelude::*, window::close_on_esc};
+use bevy::{color::palettes, prelude::*};
 use bevy_ui_bits::*;
 
 const DESPAWN_BUTTON_ID: usize = 1;
@@ -13,7 +13,7 @@ fn main() {
             ..default()
         }))
         .add_systems(Startup, (spawn_camera, spawn_main_menu))
-        .add_systems(Update, (close_on_esc, handle_mouse_input).chain())
+        .add_systems(Update, (handle_mouse_input).chain())
         .run();
 }
 
@@ -37,12 +37,14 @@ fn spawn_main_menu(mut commands: Commands) {
 
     let mut despawn = UiButton::new("Despawn UI", font);
 
-    title.color(Color::TEAL);
+    title.color(palettes::css::TEAL.into());
 
     main_container.justify_between();
     bottom_wrapper.justify_between();
 
-    despawn.id(DESPAWN_BUTTON_ID).selected_color(Color::TEAL);
+    despawn
+        .id(DESPAWN_BUTTON_ID)
+        .selected_color(palettes::css::TEAL.into());
 
     root.spawn(&mut commands, |parent| {
         main_container.spawn(parent, |parent| {
@@ -72,10 +74,10 @@ fn handle_mouse_input(
     for (button_data, interaction, mut background_color) in &mut query {
         match *interaction {
             Interaction::None => {
-                *background_color = Color::TEAL.into();
+                *background_color = palettes::css::TEAL.into();
             }
             Interaction::Hovered => {
-                *background_color = Color::TURQUOISE.into();
+                *background_color = palettes::css::AQUA.into();
             }
             Interaction::Pressed => {
                 if button_data.id == DESPAWN_BUTTON_ID {

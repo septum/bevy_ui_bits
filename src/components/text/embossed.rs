@@ -16,7 +16,8 @@ impl Default for EmbossedText {
             color: Color::WHITE,
         };
         EmbossedText {
-            bundle: TextBundle::from_section("", style).with_text_justify(JustifyText::Center),
+            bundle: TextBundle::from_section(String::new(), style)
+                .with_text_justify(JustifyText::Center),
             background_color: Color::BLACK,
         }
     }
@@ -28,10 +29,12 @@ impl UiText for EmbossedText {
     }
 
     fn spawn(self, parent: &mut ChildBuilder) {
-        let style = self.bundle.text.sections[0].style.clone();
-        let mut background =
-            TextBundle::from_section("", style).with_text_justify(JustifyText::Center);
+        let text_clone = self.bundle.text.clone();
         let mut foreground = self.bundle;
+        let mut background = TextBundle {
+            text: text_clone,
+            ..default()
+        };
         let relief = foreground.text.sections[0].style.font_size / EmbossedText::SIZE_SMALL;
 
         foreground.style.position_type = PositionType::Absolute;

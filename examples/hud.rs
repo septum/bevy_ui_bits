@@ -1,4 +1,4 @@
-use bevy::{input::keyboard::KeyboardInput, prelude::*, window::close_on_esc};
+use bevy::{color::palettes, input::keyboard::KeyboardInput, prelude::*};
 use bevy_ui_bits::*;
 
 const JUMPS_TEXT_ID: usize = 1;
@@ -13,7 +13,7 @@ fn main() {
             ..default()
         }))
         .add_systems(Startup, (spawn_camera, spawn_hud))
-        .add_systems(Update, (handle_input, close_on_esc))
+        .add_systems(Update, handle_input)
         .run();
 }
 
@@ -34,7 +34,9 @@ fn spawn_hud(mut commands: Commands) {
 
     top_container.row().justify_between();
 
-    level.color(Color::GOLD).background_color(Color::ORANGE_RED);
+    level
+        .color(palettes::css::GOLD.into())
+        .background_color(palettes::css::BLACK.into());
     jumps.id(JUMPS_TEXT_ID).dynamic_text_value("0");
 
     root.spawn(&mut commands, |parent| {

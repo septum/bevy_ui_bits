@@ -1,4 +1,4 @@
-use bevy::{input::keyboard::KeyboardInput, prelude::*, window::close_on_esc};
+use bevy::{color::palettes, input::keyboard::KeyboardInput, prelude::*};
 use bevy_ui_bits::*;
 
 const PLAY_BUTTON_ID: usize = 1;
@@ -20,7 +20,6 @@ fn main() {
         }))
         .insert_resource(SelectedButton { id: PLAY_BUTTON_ID })
         .add_systems(Startup, (spawn_camera, spawn_main_menu))
-        .add_systems(Update, close_on_esc)
         .add_systems(
             Update,
             (handle_keyboard_input, handle_mouse_input, update_buttons).chain(),
@@ -52,12 +51,13 @@ fn spawn_main_menu(mut commands: Commands) {
     let mut play = UiButton::new("Play", font);
     let mut quit = UiButton::new("Quit", font);
 
-    title.color(Color::GOLD);
+    title.color(palettes::css::GOLD.into());
 
     main_container.justify_between();
     bottom_wrapper.justify_between();
 
-    play.id(PLAY_BUTTON_ID).selected_color(Color::GOLD);
+    play.id(PLAY_BUTTON_ID)
+        .selected_color(palettes::css::GOLD.into());
     quit.id(QUIT_BUTTON_ID);
 
     root.spawn(&mut commands, |parent| {
@@ -123,7 +123,7 @@ fn update_buttons(
 ) {
     for (button_data, mut background_color) in &mut query {
         if button_data.id == selected_button.id {
-            *background_color = Color::GOLD.into();
+            *background_color = palettes::css::GOLD.into();
         } else {
             *background_color = Color::NONE.into();
         }

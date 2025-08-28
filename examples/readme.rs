@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{color::palettes, prelude::*};
 use bevy_ui_bits::*;
 
 fn main() {
@@ -29,8 +29,8 @@ fn spawn_ui(mut commands: Commands) {
 
     // Make changes to the properties with a fluent interface
     main_container.justify_between();
-    title.color(Color::YELLOW);
-    play.selected_color(Color::MIDNIGHT_BLUE);
+    title.color(palettes::css::GOLD.into());
+    play.selected_color(palettes::css::MIDNIGHT_BLUE.into());
 
     // Use a nested structure to spawn the UI tree
     root.spawn(&mut commands, |parent| {
