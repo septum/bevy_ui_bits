@@ -27,3 +27,8 @@ required-features = ["bevy/default"]
 name = "hud"
 path = "examples/hud.rs"
 required-features = ["bevy/default"]
+
+[[example]]
+name = "despawn"
+path = "examples/despawn.rs"
+required-features = ["bevy/default"]
