@@ -81,8 +81,8 @@ fn handle_mouse_input(
             }
             Interaction::Pressed => {
                 if button_data.id == DESPAWN_BUTTON_ID {
-                    let root_entity = root_query.single();
-                    commands.entity(root_entity).despawn_recursive();
+                    let root_entity = root_query.single().expect("An entity should be present");
+                    commands.entity(root_entity).despawn();
                 }
             }
         }

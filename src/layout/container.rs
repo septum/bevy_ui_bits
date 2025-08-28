@@ -162,7 +162,11 @@ impl Container {
     }
 
     /// Spawns the underlaying bundle with the given children built in the given closure
-    pub fn spawn(self, parent: &mut ChildBuilder, spawn_children: impl FnOnce(&mut ChildBuilder)) {
+    pub fn spawn(
+        self,
+        parent: &mut ChildSpawnerCommands,
+        spawn_children: impl FnOnce(&mut ChildSpawnerCommands),
+    ) {
         parent
             .spawn((self.node, self.background_color))
             .with_children(spawn_children);

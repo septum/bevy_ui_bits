@@ -43,7 +43,7 @@ impl Default for DynamicText {
 }
 
 impl UiText for DynamicText {
-    fn spawn(self, parent: &mut ChildBuilder) {
+    fn spawn(self, parent: &mut ChildSpawnerCommands) {
         parent
             .spawn((
                 self.text,

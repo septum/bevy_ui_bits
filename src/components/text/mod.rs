@@ -85,6 +85,6 @@ pub trait UiText: Default {
     /// Get a mut ref of the inner text component
     fn text(&mut self, text: Text);
 
-    /// Spawns the underlaying bundle with the provided parent (mutable reference to [ChildBuilder])
-    fn spawn(self, parent: &mut ChildBuilder);
+    /// Spawns the underlaying bresetundle with the provided parent (mutable reference to [ChildBuilder])
+    fn spawn(self, parent: &mut ChildSpawnerCommands);
 }

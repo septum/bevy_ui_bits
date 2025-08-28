@@ -45,7 +45,7 @@ impl Default for EmbossedText {
 }
 
 impl UiText for EmbossedText {
-    fn spawn(self, parent: &mut ChildBuilder) {
+    fn spawn(self, parent: &mut ChildSpawnerCommands) {
         let mut foreground = self.bundle.clone();
         let mut background = self.bundle;
         let relief = foreground.font.font_size / EmbossedText::SIZE_SMALL;

@@ -58,7 +58,11 @@ impl Root {
     /// Spawns the underlaying bundle with the given children built in the given closure
     ///
     /// [Root] additionaly takes a mutable reference to [Commands]
-    pub fn spawn(self, commands: &mut Commands, spawn_children: impl FnOnce(&mut ChildBuilder)) {
+    pub fn spawn(
+        self,
+        commands: &mut Commands,
+        spawn_children: impl FnOnce(&mut ChildSpawnerCommands),
+    ) {
         commands
             .spawn((self.node, self.background_color))
             .with_children(spawn_children)

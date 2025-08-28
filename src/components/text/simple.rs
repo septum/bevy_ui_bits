@@ -32,7 +32,7 @@ impl Default for SimpleText {
 }
 
 impl UiText for SimpleText {
-    fn spawn(self, parent: &mut ChildBuilder) {
+    fn spawn(self, parent: &mut ChildSpawnerCommands) {
         parent.spawn(self);
     }
 
