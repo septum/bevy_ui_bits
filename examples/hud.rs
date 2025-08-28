@@ -1,4 +1,4 @@
-use bevy::{prelude::*, window::close_on_esc};
+use bevy::{input::keyboard::KeyboardInput, prelude::*, window::close_on_esc};
 use bevy_ui_bits::*;
 
 const JUMPS_TEXT_ID: usize = 1;
@@ -48,12 +48,22 @@ fn spawn_hud(mut commands: Commands) {
     });
 }
 
-fn handle_input(keys: Res<Input<KeyCode>>, mut texts: Query<(&mut Text, &DynamicTextData)>) {
-    if keys.just_pressed(KeyCode::Space) {
-        for (mut text, data) in texts.iter_mut() {
-            if matches!(data.id, JUMPS_TEXT_ID) {
-                text.sections[1].value =
-                    format!("{}", text.sections[1].value.parse::<usize>().unwrap() + 1);
+fn handle_input(
+    mut keyboard_input_events: EventReader<KeyboardInput>,
+    mut texts: Query<(&mut Text, &DynamicTextData)>,
+) {
+    for event in keyboard_input_events.read() {
+        if event.state.is_pressed() {
+            match event.key_code {
+                KeyCode::Space => {
+                    for (mut text, data) in texts.iter_mut() {
+                        if matches!(data.id, JUMPS_TEXT_ID) {
+                            text.sections[1].value =
+                                format!("{}", text.sections[1].value.parse::<usize>().unwrap() + 1);
+                        }
+                    }
+                }
+                _ => break,
             }
         }
     }

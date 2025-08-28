@@ -13,7 +13,7 @@ keywords = ["bevy", "ui", "components"]
 categories = ["game-development"]
 
 [dependencies.bevy]
-version = "0.12"
+version = "0.13"
 default-features = false
 features = ["bevy_ui"]
 

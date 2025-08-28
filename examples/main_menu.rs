@@ -1,4 +1,4 @@
-use bevy::{prelude::*, window::close_on_esc};
+use bevy::{input::keyboard::KeyboardInput, prelude::*, window::close_on_esc};
 use bevy_ui_bits::*;
 
 const PLAY_BUTTON_ID: usize = 1;
@@ -79,20 +79,27 @@ fn spawn_main_menu(mut commands: Commands) {
 }
 
 fn handle_keyboard_input(
-    mut keys: ResMut<Input<KeyCode>>,
+    mut keyboard_input_events: EventReader<KeyboardInput>,
     mut selected_button: ResMut<SelectedButton>,
     query: Query<&UiButtonData>,
 ) {
-    if keys.just_pressed(KeyCode::Up) || keys.just_pressed(KeyCode::Down) {
-        for button_data in &query {
-            if button_data.id == selected_button.id {
-                selected_button.id = if button_data.id == PLAY_BUTTON_ID {
-                    QUIT_BUTTON_ID
-                } else {
-                    PLAY_BUTTON_ID
-                };
-                keys.clear();
-                break;
+    for event in keyboard_input_events.read() {
+        if event.state.is_pressed() {
+            match event.key_code {
+                KeyCode::ArrowUp | KeyCode::ArrowDown => {
+                    for button_data in &query {
+                        if button_data.id == selected_button.id {
+                            selected_button.id = if button_data.id == PLAY_BUTTON_ID {
+                                QUIT_BUTTON_ID
+                            } else {
+                                PLAY_BUTTON_ID
+                            };
+
+                            break;
+                        }
+                    }
+                }
+                _ => break,
             }
         }
     }

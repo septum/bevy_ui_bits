@@ -28,7 +28,7 @@ impl Default for DynamicText {
         DynamicText {
             data: DynamicTextData::default(),
             bundle: TextBundle::from_sections(vec![section; 2])
-                .with_text_alignment(TextAlignment::Center),
+                .with_text_justify(JustifyText::Center),
         }
     }
 }
