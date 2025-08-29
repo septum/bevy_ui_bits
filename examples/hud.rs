@@ -35,7 +35,7 @@ fn spawn_hud(mut commands: Commands) {
     top_container.row().justify_between();
 
     level.color(palettes::css::GOLD.into());
-    level.background_color(palettes::css::BLACK.into());
+    level.background_color(palettes::css::MIDNIGHT_BLUE.into());
 
     jumps.id(JUMPS_TEXT_ID).dynamic_text_value("0");
 

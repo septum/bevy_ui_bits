@@ -23,10 +23,10 @@ fn spawn_ui(mut commands: Commands) {
 
     let font = &Handle::default();
 
-    // Root is the encompassing component for a given UI tree
+    // Root is the base component for a given UI tree
     let root = Root::congregated();
 
-    // Container is the quintessential layout component
+    // Container is the common layout component
     let mut main_container = Container::height(400.0);
 
     // EmbossedText represents text with a background relief
@@ -35,11 +35,12 @@ fn spawn_ui(mut commands: Commands) {
     // UiButton wraps over a ButtonBundle with opinionated defaults
     let mut play = UiButton::new("Start", font);
 
-    let by = SimpleText::small("By me", font);
+    let by = SimpleText::medium("By me", font);
 
     // Make changes to the properties with a fluent interface
     main_container.justify_between();
     title.color(palettes::css::GOLD.into());
+    title.background_color(palettes::css::MIDNIGHT_BLUE.into());
     play.selected_color(palettes::css::MIDNIGHT_BLUE.into());
 
     // Use a nested structure to spawn the UI tree
@@ -51,6 +52,7 @@ fn spawn_ui(mut commands: Commands) {
         });
     });
 }
+
 ```
 
 Try it out with:
@@ -63,7 +65,7 @@ cargo run --example readme --features="bevy/default"
 
 ### Basic main menu UI that supports both mouse and keyboard input
 
-![main_menu](https://user-images.githubusercontent.com/4467518/220443135-350551c0-2af4-4f54-b436-73d83647fc66.png)
+![main_menu](assets/main_menu.png)
 
 Try it out with:
 
@@ -73,7 +75,7 @@ cargo run --example main_menu --features="bevy/default"
 
 ### Simple HUD that features a dynamic text component
 
-![hud](https://user-images.githubusercontent.com/4467518/220443052-18ebaf41-d857-495e-9dd9-c38dd8878440.png)
+![hud](assets/hud.png)
 
 Try it out with:
 
@@ -83,7 +85,7 @@ cargo run --example hud --features="bevy/default"
 
 ### Despawn UI recursively with the `RootMarker`
 
-![despawn](https://github.com/septum/bevy_ui_bits/assets/4467518/a873033b-f709-4c15-8842-a93829ccd483)
+![despawn](assets/despawn.png)
 
 Try it out with:
 
