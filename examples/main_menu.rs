@@ -36,46 +36,44 @@ fn spawn_main_menu(mut commands: Commands) {
 
     let root = Root::congregated();
 
-    let mut main_container = Container::height(500.0);
-    let top_wrapper = Container::auto();
-    let mut bottom_wrapper = Container::height(200.0);
-    let actions_wrapper = Container::auto();
-    let footer_wrapper = Container::auto();
+    let main_container = Container::height(500.0).justify_between();
+    let top = Container::auto();
+    let bottom = Container::height(200.0).justify_between();
+    let actions = Container::auto();
+    let footer = Container::auto();
 
-    let mut title = EmbossedText::extra_large("My\nGame", font);
+    let title = EmbossedText::extra_large("My\nGame", font).color(palettes::css::GOLD.into());
     let instructions = SimpleText::small(
         "Use mouse or the arrow keys to interact with the buttons",
         font,
     );
 
-    let mut play = UiButton::new("Play", font);
-    let mut quit = UiButton::new("Quit", font);
+    let play = UiButton::rectangle()
+        .id(PLAY_BUTTON_ID)
+        .background_color(palettes::css::GOLD.into());
+    let play_text = EmbossedText::medium("Play", font);
+    let quit = UiButton::rectangle().id(QUIT_BUTTON_ID);
+    let quit_text = EmbossedText::medium("Quit", font);
 
-    title.color(palettes::css::GOLD.into());
-
-    main_container.justify_between();
-    bottom_wrapper.justify_between();
-
-    play.id(PLAY_BUTTON_ID)
-        .selected_color(palettes::css::GOLD.into());
-    quit.id(QUIT_BUTTON_ID);
-
-    root.spawn(&mut commands, |parent| {
-        main_container.spawn(parent, |parent| {
-            top_wrapper.spawn(parent, |parent| {
-                title.spawn(parent);
-            });
-            bottom_wrapper.spawn(parent, |parent| {
-                actions_wrapper.spawn(parent, |parent| {
-                    play.spawn(parent);
-                    quit.spawn(parent);
-                });
-                footer_wrapper.spawn(parent, |parent| {
-                    instructions.spawn(parent);
-                });
-            });
-        });
-    });
+    commands.spawn((
+        root,
+        children![(
+            main_container,
+            children![
+                (top, children![title]),
+                (
+                    bottom,
+                    children![
+                        (
+                            actions,
+                            children![(play, children![play_text]), (quit, children![quit_text])]
+                        ),
+                        (footer, children![instructions])
+                    ]
+                )
+            ]
+        )],
+    ));
 }
 
 fn handle_keyboard_input(

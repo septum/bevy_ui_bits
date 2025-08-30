@@ -1,0 +1,103 @@
+use bevy::prelude::*;
+
+use super::UiText;
+
+/// Embossed text [Bundle]
+#[derive(Bundle)]
+pub struct EmbossedText {
+    text: Text,
+    font: TextFont,
+    color: TextColor,
+    layout: TextLayout,
+    shadow: TextShadow,
+}
+
+impl Default for EmbossedText {
+    fn default() -> EmbossedText {
+        EmbossedText {
+            text: Text::new(""),
+            font: TextFont::from_font_size(super::SIZE_MEDIUM),
+            color: TextColor(Color::WHITE),
+            layout: TextLayout::new_with_justify(JustifyText::Center),
+            shadow: TextShadow {
+                offset: Vec2::splat(2.0),
+                color: Color::BLACK,
+            },
+        }
+    }
+}
+
+impl UiText for EmbossedText {
+    fn small(value: &str, font: &Handle<Font>) -> Self {
+        Self::default()
+            .font(TextFont {
+                font: font.clone(),
+                font_size: super::SIZE_SMALL,
+                ..default()
+            })
+            .text(Text::new(value))
+            .relief(1.0)
+    }
+
+    fn medium(value: &str, font: &Handle<Font>) -> Self {
+        Self::default()
+            .font(TextFont {
+                font: font.clone(),
+                font_size: super::SIZE_MEDIUM,
+                ..default()
+            })
+            .text(Text::new(value))
+            .relief(2.0)
+    }
+
+    fn large(value: &str, font: &Handle<Font>) -> Self {
+        Self::default()
+            .font(TextFont {
+                font: font.clone(),
+                font_size: super::SIZE_LARGE,
+                ..default()
+            })
+            .text(Text::new(value))
+            .relief(5.0)
+    }
+
+    fn extra_large(value: &str, font: &Handle<Font>) -> Self {
+        Self::default()
+            .font(TextFont {
+                font: font.clone(),
+                font_size: super::SIZE_EXTRA_LARGE,
+                ..default()
+            })
+            .text(Text::new(value))
+            .relief(6.0)
+    }
+
+    fn color(mut self, color: TextColor) -> Self {
+        self.color = color;
+        self
+    }
+
+    fn font(mut self, font: TextFont) -> Self {
+        self.font = font.clone();
+        self
+    }
+
+    fn text(mut self, text: Text) -> Self {
+        self.text = text.clone();
+        self
+    }
+}
+
+impl EmbossedText {
+    /// Sets the shadow color of the [EmbossedText]
+    pub fn shadow(mut self, color: Color) -> Self {
+        self.shadow.color = color;
+        self
+    }
+
+    /// Sets the offset of the shadow for the [EmbossedText]
+    fn relief(mut self, relief: f32) -> Self {
+        self.shadow.offset = Vec2::splat(relief);
+        self
+    }
+}

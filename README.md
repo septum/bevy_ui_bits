@@ -26,33 +26,29 @@ fn spawn_ui(mut commands: Commands) {
     // Root is the base component for a given UI tree
     let root = Root::congregated();
 
-    // Container is the common layout component
-    let mut main_container = Container::height(400.0);
+    // Container is the typical layout component
+    let main_container = Container::height(400.0).justify_between();
 
-    // EmbossedText represents text with a background relief
-    let mut title = EmbossedText::large("My Game", font);
+    // Customize components fluently using a builder-lite pattern
+    let title = EmbossedText::large("My Game", font)
+        .color(palettes::css::GOLD.into())
+        .shadow(palettes::css::MIDNIGHT_BLUE.into());
 
-    // UiButton wraps over a ButtonBundle with opinionated defaults
-    let mut play = UiButton::new("Start", font);
+    // UiButton provides a button with opinionated settings
+    let play = UiButton::rectangle().background_color(palettes::css::MIDNIGHT_BLUE.into());
+    let play_text = EmbossedText::medium("Play", font);
 
     let by = SimpleText::medium("By me", font);
 
-    // Make changes to the properties with a fluent interface
-    main_container.justify_between();
-    title.color(palettes::css::GOLD.into());
-    title.background_color(palettes::css::MIDNIGHT_BLUE.into());
-    play.selected_color(palettes::css::MIDNIGHT_BLUE.into());
-
-    // Use a nested structure to spawn the UI tree
-    root.spawn(&mut commands, |parent| {
-        main_container.spawn(parent, |parent| {
-            title.spawn(parent);
-            play.spawn(parent);
-            by.spawn(parent);
-        });
-    });
+    // Use the new Spawn API to spawn UI tree
+    commands.spawn((
+        root,
+        children![(
+            main_container,
+            children![title, (play, children![play_text]), by]
+        )],
+    ));
 }
-
 ```
 
 Try it out with:

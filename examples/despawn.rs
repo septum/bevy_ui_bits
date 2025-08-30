@@ -12,8 +12,8 @@ fn main() {
             }),
             ..default()
         }))
-        .add_systems(Startup, (spawn_camera, spawn_main_menu))
-        .add_systems(Update, (handle_mouse_input).chain())
+        .add_systems(Startup, (spawn_camera, spawn_main_menu).chain())
+        .add_systems(Update, handle_mouse_input)
         .run();
 }
 
@@ -26,48 +26,46 @@ fn spawn_main_menu(mut commands: Commands) {
 
     let root = Root::congregated();
 
-    let mut main_container = Container::height(400.0);
+    let main_container = Container::height(400.0).justify_between();
     let top_wrapper = Container::auto();
-    let mut bottom_wrapper = Container::height(200.0);
+    let bottom_wrapper = Container::height(200.0).justify_between();
     let actions_wrapper = Container::auto();
     let footer_wrapper = Container::auto();
 
-    let mut title = EmbossedText::extra_large("Game Over", font);
+    let title = EmbossedText::extra_large("Game Over", font).color(palettes::css::TEAL.into());
     let instructions = SimpleText::small("Use the mouse to interact with the buttons", font);
 
-    let mut despawn = UiButton::new("Despawn UI", font);
-
-    title.color(palettes::css::TEAL.into());
-
-    main_container.justify_between();
-    bottom_wrapper.justify_between();
-
-    despawn
+    let despawn = UiButton::rectangle()
         .id(DESPAWN_BUTTON_ID)
-        .selected_color(palettes::css::TEAL.into());
+        .background_color(palettes::css::TEAL.into());
+    let despawn_text = EmbossedText::medium("Despawn UI", font);
 
-    root.spawn(&mut commands, |parent| {
-        main_container.spawn(parent, |parent| {
-            top_wrapper.spawn(parent, |parent| {
-                title.spawn(parent);
-            });
-            bottom_wrapper.spawn(parent, |parent| {
-                actions_wrapper.spawn(parent, |parent| {
-                    despawn.spawn(parent);
-                });
-                footer_wrapper.spawn(parent, |parent| {
-                    instructions.spawn(parent);
-                });
-            });
-        });
-    });
+    commands.spawn((
+        root,
+        children![(
+            main_container,
+            children![
+                (top_wrapper, children![title]),
+                (
+                    bottom_wrapper,
+                    children![
+                        (
+                            actions_wrapper,
+                            children![(despawn, children![despawn_text])]
+                        ),
+                        (footer_wrapper, children![instructions])
+                    ]
+                )
+            ]
+        )],
+    ));
 }
 
 fn handle_mouse_input(
     mut commands: Commands,
     mut query: Query<
         (&UiButtonData, &Interaction, &mut BackgroundColor),
-        (Changed<Interaction>, With<UiButtonData>),
+        (Changed<Interaction>, With<Button>),
     >,
     root_query: Query<Entity, With<RootMarker>>,
 ) {

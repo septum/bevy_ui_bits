@@ -12,7 +12,7 @@ fn main() {
             }),
             ..default()
         }))
-        .add_systems(Startup, (spawn_camera, spawn_hud))
+        .add_systems(Startup, (spawn_camera, spawn_hud).chain())
         .add_systems(Update, handle_input)
         .run();
 }
@@ -25,29 +25,24 @@ fn spawn_hud(mut commands: Commands) {
     let font = &Handle::default();
 
     let root = Root::dispersed();
-    let mut top_container = Container::auto_height();
+    let top_container = Container::auto_height().row().justify_between();
     let bottom_container = Container::auto_height();
 
-    let mut level = EmbossedText::medium("Level 1", font);
-    let mut jumps = DynamicText::medium("Jumps: ", font);
+    let level = EmbossedText::medium("Level 1", font)
+        .color(palettes::css::GOLD.into())
+        .shadow(palettes::css::MIDNIGHT_BLUE.into());
+    let jumps = DynamicText::medium("Jumps: ", font)
+        .id(JUMPS_TEXT_ID)
+        .initial_dynamic_text("0");
     let instructions = SimpleText::small("Press [SPACE] to jump", font);
 
-    top_container.row().justify_between();
-
-    level.color(palettes::css::GOLD.into());
-    level.background_color(palettes::css::MIDNIGHT_BLUE.into());
-
-    jumps.id(JUMPS_TEXT_ID).dynamic_text_value("0");
-
-    root.spawn(&mut commands, |parent| {
-        top_container.spawn(parent, |parent| {
-            level.spawn(parent);
-            jumps.spawn(parent);
-        });
-        bottom_container.spawn(parent, |parent| {
-            instructions.spawn(parent);
-        });
-    });
+    commands.spawn((
+        root,
+        children![
+            (top_container, children![level, jumps.build()]),
+            (bottom_container, children![instructions])
+        ],
+    ));
 }
 
 fn handle_input(
@@ -62,7 +57,8 @@ fn handle_input(
                     for (entity, data) in texts.iter_mut() {
                         if matches!(data.id, JUMPS_TEXT_ID) {
                             if let Some(mut text) = writer.get_text(entity, 1) {
-                                *text = format!("{}", text.as_str().parse::<usize>().unwrap() + 1);
+                                *text =
+                                    format!("{}", text.as_str().parse::<usize>().unwrap_or(0) + 1);
                             }
                         }
                     }
