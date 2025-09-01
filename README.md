@@ -60,6 +60,16 @@ cargo run --example readme --features="bevy/default"
 
 ## Examples
 
+### Features showcase
+
+![showcase](assets/showcase.png)
+
+Try it out with:
+
+```
+cargo run --example showcase --features="bevy/default"
+```
+
 ### Basic main menu UI that supports both mouse and keyboard input
 
 ![main_menu](assets/main_menu.png)

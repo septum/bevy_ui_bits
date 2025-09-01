@@ -37,3 +37,8 @@ required-features = ["bevy/default"]
 name = "readme"
 path = "examples/readme.rs"
 required-features = ["bevy/default"]
+
+[[example]]
+name = "showcase"
+path = "examples/showcase.rs"
+required-features = ["bevy/default"]
