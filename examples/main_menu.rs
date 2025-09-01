@@ -34,31 +34,29 @@ fn spawn_camera(mut commands: Commands) {
 fn spawn_main_menu(mut commands: Commands) {
     let font = &Handle::default();
 
-    let root = Root::congregated();
-
-    let main_container = Container::height(500.0).justify_between();
-    let top = Container::auto();
-    let bottom = Container::height(200.0).justify_between();
-    let actions = Container::auto();
-    let footer = Container::auto();
+    let root = Root::new();
+    let container = Container::height(Val::Px(500.0)).justify_between();
+    let top = Container::size(Val::Auto, Val::Auto);
+    let bottom = Container::height(Val::Px(200.0)).justify_between();
+    let actions = Container::size(Val::Auto, Val::Auto);
+    let footer = Container::size(Val::Auto, Val::Auto);
 
     let title = EmbossedText::extra_large("My\nGame", font).color(palettes::css::GOLD.into());
-    let instructions = SimpleText::small(
-        "Use mouse or the arrow keys to interact with the buttons",
-        font,
-    );
-
     let play = UiButton::rectangle()
         .id(PLAY_BUTTON_ID)
         .background_color(palettes::css::GOLD.into());
     let play_text = EmbossedText::medium("Play", font);
     let quit = UiButton::rectangle().id(QUIT_BUTTON_ID);
     let quit_text = EmbossedText::medium("Quit", font);
+    let instructions = SimpleText::small(
+        "Use mouse or the arrow keys to interact with the buttons",
+        font,
+    );
 
     commands.spawn((
         root,
         children![(
-            main_container,
+            container,
             children![
                 (top, children![title]),
                 (

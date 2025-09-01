@@ -1,15 +1,21 @@
 use bevy::prelude::*;
 
-/// Data component for the [UiButton]
+/// Opinionated default width
+const DEFAULT_BUTTON_WIDTH: Val = Val::Px(400.0);
+
+/// Opinionated default height
+const DEFAULT_BUTTON_HEIGHT: Val = Val::Px(60.0);
+
+/// Data-holding component for the [UiButton] bundle
 #[derive(Component, Default)]
 pub struct UiButtonData {
-    /// ID for the [UiButton]
+    /// [usize] identifier
     pub id: usize,
-    /// Optional [String] value field to store data
-    pub value: Option<String>,
+    /// Optional [String] field to store data
+    pub payload: Option<String>,
 }
 
-/// Button [Bundle] that holds [UiButtonData]
+/// Button component [Bundle]
 #[derive(Bundle)]
 pub struct UiButton {
     node: Node,
@@ -19,11 +25,12 @@ pub struct UiButton {
 }
 
 impl Default for UiButton {
-    fn default() -> UiButton {
-        UiButton {
+    /// Creates a rectangular [UiButton]
+    fn default() -> Self {
+        Self {
             node: Node {
-                width: Val::Px(400.0),
-                height: Val::Px(60.0),
+                width: DEFAULT_BUTTON_WIDTH,
+                height: DEFAULT_BUTTON_HEIGHT,
                 justify_content: JustifyContent::Center,
                 align_items: AlignItems::Center,
                 ..default()
@@ -38,43 +45,41 @@ impl Default for UiButton {
 impl UiButton {
     /// Creates a rectangular [UiButton]
     pub fn rectangle() -> Self {
-        UiButton::default()
+        Self::default()
     }
 
     /// Creates a square [UiButton]
     pub fn square() -> Self {
-        let mut button = Self::default();
-        button.node.width = Val::Px(60.0);
-        button
+        Self::default().width(DEFAULT_BUTTON_HEIGHT)
     }
 
-    /// Sets an initial background color with the provided [Color]
+    /// Sets the initial background color
     pub fn background_color(mut self, color: Color) -> Self {
         self.background_color = color.into();
         self
     }
 
-    /// Sets width in pixels
-    pub fn width(mut self, width: f32) -> Self {
-        self.node.width = Val::Px(width);
+    /// Sets the button width with the provided [Val]
+    pub fn width(mut self, width: Val) -> Self {
+        self.node.width = width;
         self
     }
 
-    /// Sets height in pixels
-    pub fn height(mut self, height: f32) -> Self {
-        self.node.height = Val::Px(height);
+    /// Sets the button height with the provided [Val]
+    pub fn height(mut self, height: Val) -> Self {
+        self.node.height = height;
         self
     }
 
-    /// Sets id of the [UiButton]
+    /// Sets the button ID
     pub fn id(mut self, id: usize) -> Self {
         self.data.id = id;
         self
     }
 
-    /// Sets payload of the [UiButton]
-    pub fn data(mut self, payload: &str) -> Self {
-        self.data.value = Some(payload.into());
+    /// Sets the button payload in [UiButtonData]
+    pub fn payload(mut self, payload: &str) -> Self {
+        self.data.payload = Some(payload.into());
         self
     }
 }

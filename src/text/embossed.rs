@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use super::UiText;
 
-/// Embossed text [Bundle]
+/// Embossed text component [Bundle]
 #[derive(Bundle)]
 pub struct EmbossedText {
     text: Text,
@@ -13,8 +13,8 @@ pub struct EmbossedText {
 }
 
 impl Default for EmbossedText {
-    fn default() -> EmbossedText {
-        EmbossedText {
+    fn default() -> Self {
+        Self {
             text: Text::new(""),
             font: TextFont::from_font_size(super::SIZE_MEDIUM),
             color: TextColor(Color::WHITE),
@@ -89,13 +89,13 @@ impl UiText for EmbossedText {
 }
 
 impl EmbossedText {
-    /// Sets the shadow color of the [EmbossedText]
+    /// Sets the shadow color of the text
     pub fn shadow(mut self, color: Color) -> Self {
         self.shadow.color = color;
         self
     }
 
-    /// Sets the offset of the shadow for the [EmbossedText]
+    /// Sets the offset of the text shadow with the provided relief
     fn relief(mut self, relief: f32) -> Self {
         self.shadow.offset = Vec2::splat(relief);
         self

@@ -24,36 +24,32 @@ fn spawn_camera(mut commands: Commands) {
 fn spawn_main_menu(mut commands: Commands) {
     let font = &Handle::default();
 
-    let root = Root::congregated();
+    let root = Root::new();
 
-    let main_container = Container::height(400.0).justify_between();
-    let top_wrapper = Container::auto();
-    let bottom_wrapper = Container::height(200.0).justify_between();
-    let actions_wrapper = Container::auto();
-    let footer_wrapper = Container::auto();
+    let container = Container::height(Val::Px(400.0)).justify_between();
+    let top = Container::height(Val::Auto);
+    let bottom = Container::height(Val::Px(200.0)).justify_between();
+    let actions = Container::height(Val::Auto);
+    let footer = Container::height(Val::Auto);
 
     let title = EmbossedText::extra_large("Game Over", font).color(palettes::css::TEAL.into());
-    let instructions = SimpleText::small("Use the mouse to interact with the buttons", font);
-
     let despawn = UiButton::rectangle()
         .id(DESPAWN_BUTTON_ID)
         .background_color(palettes::css::TEAL.into());
     let despawn_text = EmbossedText::medium("Despawn UI", font);
+    let instructions = SimpleText::small("Use the mouse to interact with the buttons", font);
 
     commands.spawn((
         root,
         children![(
-            main_container,
+            container,
             children![
-                (top_wrapper, children![title]),
+                (top, children![title]),
                 (
-                    bottom_wrapper,
+                    bottom,
                     children![
-                        (
-                            actions_wrapper,
-                            children![(despawn, children![despawn_text])]
-                        ),
-                        (footer_wrapper, children![instructions])
+                        (actions, children![(despawn, children![despawn_text])]),
+                        (footer, children![instructions])
                     ]
                 )
             ]

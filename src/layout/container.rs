@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-/// Common layout [Bundle]
+/// Typical layout component [Bundle]
 #[derive(Bundle)]
 pub struct Container {
     node: Node,
@@ -10,6 +10,7 @@ pub struct Container {
 }
 
 impl Default for Container {
+    /// Creates a new [Container] with full width and height
     fn default() -> Self {
         Container {
             node: Node {
@@ -28,64 +29,38 @@ impl Default for Container {
 }
 
 impl Container {
-    /// Creates a [Container] with the provided width in pixels
-    pub fn width(width: f32) -> Self {
+    /// Creates a new [Container] with full width and height, centered,
+    /// and the flex direction set from top to bottom
+    pub fn new() -> Self {
+        Container::default()
+    }
+
+    /// Creates a [Container] with the provided width value
+    pub fn width(width: Val) -> Self {
         let mut container = Self::default();
-        container.node.width = Val::Px(width);
+        container.node.width = width;
         container
     }
 
-    /// Creates a [Container] with the provided height in pixels
-    pub fn height(height: f32) -> Self {
+    /// Creates a [Container] with the provided height value
+    pub fn height(height: Val) -> Self {
         let mut container = Self::default();
-        container.node.height = Val::Px(height);
+        container.node.height = height;
         container
     }
 
-    /// Creates a [Container] with the provided width and height in pixels
-    pub fn size(width: f32, height: f32) -> Self {
+    /// Creates a [Container] with the provided width and height values
+    pub fn size(width: Val, height: Val) -> Self {
         let mut container = Self::default();
-        container.node.width = Val::Px(width);
-        container.node.height = Val::Px(height);
+        container.node.width = width;
+        container.node.height = height;
         container
     }
 
-    /// Creates a [Container] with the provided width and height in percent
-    pub fn size_percentage(width: f32, height: f32) -> Self {
-        let mut container = Self::default();
-        container.node.width = Val::Percent(width);
-        container.node.height = Val::Percent(height);
-        container
-    }
-
-    /// Creates a [Container] with the width and height automatically determined
-    pub fn auto() -> Self {
-        let mut container = Self::default();
-        container.node.width = Val::Auto;
-        container.node.height = Val::Auto;
-        container
-    }
-
-    /// Creates a [Container] with the height automatically determined
-    pub fn auto_height() -> Self {
-        let mut container = Self::default();
-        container.node.height = Val::Auto;
-        container
-    }
-
-    /// Creates a [Container] with the height automatically determined
-    /// and the provided width in pixels
-    pub fn auto_height_with_width(width: f32) -> Self {
-        let mut container = Self::auto_height();
-        container.node.width = Val::Px(width);
-        container
-    }
-
-    /// Creates a [Container] with 50% of its parent width
-    pub fn half_width() -> Self {
-        let mut container = Self::default();
-        container.node.width = Val::Percent(50.0);
-        container
+    /// Sets the background color with the provided [Color]
+    pub fn background_color(mut self, color: Color) -> Self {
+        self.background_color = color.into();
+        self
     }
 
     /// Sets position type as [PositionType::Absolute]
@@ -97,18 +72,6 @@ impl Container {
     /// Sets flex direction as [FlexDirection::Row]
     pub fn row(mut self) -> Self {
         self.node.flex_direction = FlexDirection::Row;
-        self
-    }
-
-    /// Sets justify content as [JustifyContent::SpaceBetween]
-    pub fn justify_between(mut self) -> Self {
-        self.node.justify_content = JustifyContent::SpaceBetween;
-        self
-    }
-
-    /// Sets justify content as [JustifyContent::SpaceAround]
-    pub fn justify_around(mut self) -> Self {
-        self.node.justify_content = JustifyContent::SpaceAround;
         self
     }
 
@@ -124,9 +87,27 @@ impl Container {
         self
     }
 
+    /// Sets justify content as [JustifyContent::SpaceBetween]
+    pub fn justify_between(mut self) -> Self {
+        self.node.justify_content = JustifyContent::SpaceBetween;
+        self
+    }
+
+    /// Sets justify content as [JustifyContent::SpaceAround]
+    pub fn justify_around(mut self) -> Self {
+        self.node.justify_content = JustifyContent::SpaceAround;
+        self
+    }
+
     /// Sets align items as [AlignItems::FlexStart]
     pub fn items_start(mut self) -> Self {
         self.node.align_items = AlignItems::FlexStart;
+        self
+    }
+
+    /// Sets align items as [AlignItems::FlexEnd]
+    pub fn items_end(mut self) -> Self {
+        self.node.align_items = AlignItems::FlexEnd;
         self
     }
 
@@ -142,27 +123,15 @@ impl Container {
         self
     }
 
-    /// Sets align items as [AlignItems::FlexStart]
-    pub fn align_start(mut self) -> Self {
-        self.node.align_items = AlignItems::FlexStart;
+    /// Sets the container padding with the provided [UiRect]
+    pub fn padding(mut self, padding: UiRect) -> Self {
+        self.node.padding = padding;
         self
     }
 
-    /// Sets align items as [AlignItems::FlexEnd]
-    pub fn align_end(mut self) -> Self {
-        self.node.align_items = AlignItems::FlexEnd;
-        self
-    }
-
-    /// Sets the bottom margin with the provided margin as pixels
-    pub fn bottom_margin(mut self, margin: f32) -> Self {
-        self.node.margin.bottom = Val::Px(margin);
-        self
-    }
-
-    /// Sets background color with the provided [Color]
-    pub fn background_color(mut self, color: Color) -> Self {
-        self.background_color = color.into();
+    /// Sets the container margin with the provided [UiRect]
+    pub fn margin(mut self, margin: UiRect) -> Self {
+        self.node.margin = margin;
         self
     }
 }

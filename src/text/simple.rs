@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use super::UiText;
 
-/// Simple text [Bundle]
+/// Simple text component [Bundle]
 #[derive(Bundle)]
 pub struct SimpleText {
     text: Text,
@@ -12,8 +12,8 @@ pub struct SimpleText {
 }
 
 impl Default for SimpleText {
-    fn default() -> SimpleText {
-        SimpleText {
+    fn default() -> Self {
+        Self {
             text: Text::new(""),
             font: TextFont::from_font_size(super::SIZE_MEDIUM),
             color: TextColor(Color::WHITE),

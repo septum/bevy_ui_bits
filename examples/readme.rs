@@ -13,11 +13,11 @@ fn spawn_ui(mut commands: Commands) {
 
     let font = &Handle::default();
 
-    // Root is the base component for a given UI tree
-    let root = Root::congregated();
+    // Root is the base layout component for a given UI tree
+    let root = Root::new();
 
     // Container is the typical layout component
-    let main_container = Container::height(400.0).justify_between();
+    let main_container = Container::height(Val::Px(400.0)).justify_between();
 
     // Customize components fluently using a builder-lite pattern
     let title = EmbossedText::large("My Game", font)
@@ -30,7 +30,7 @@ fn spawn_ui(mut commands: Commands) {
 
     let by = SimpleText::medium("By me", font);
 
-    // Use the new Spawn API to spawn UI tree
+    // Use the new Spawn API to spawn the UI tree
     commands.spawn((
         root,
         children![(

@@ -2,17 +2,17 @@ use bevy::prelude::*;
 
 use super::UiText;
 
-/// Data component for the [DynamicText]
+/// Data-holding component for the [DynamicText] bundle
 #[derive(Component, Default)]
 pub struct DynamicTextData {
-    /// ID for the [DynamicText]
+    /// [usize] identifier
     pub id: usize,
 }
 
-/// Dynamic text builder
+/// Dynamic text [Bundle] builder
 ///
-/// Use `.build()` to convert it into a [Bundle]
-pub struct DynamicText {
+/// Use `.build()` to convert it into a [Bundle] to spawn it
+pub struct DynamicTextBuilder {
     data: DynamicTextData,
     text: Text,
     font: TextFont,
@@ -20,9 +20,9 @@ pub struct DynamicText {
     initial_text: String,
 }
 
-impl Default for DynamicText {
-    fn default() -> DynamicText {
-        DynamicText {
+impl Default for DynamicTextBuilder {
+    fn default() -> Self {
+        Self {
             data: DynamicTextData::default(),
             text: Text::new(""),
             font: TextFont::from_font_size(super::SIZE_MEDIUM),
@@ -32,7 +32,7 @@ impl Default for DynamicText {
     }
 }
 
-impl UiText for DynamicText {
+impl UiText for DynamicTextBuilder {
     fn color(mut self, color: TextColor) -> Self {
         self.color = color;
         self
@@ -49,22 +49,25 @@ impl UiText for DynamicText {
     }
 }
 
-impl DynamicText {
-    /// Sets the ID for the [DynamicText]
+impl DynamicTextBuilder {
+    /// Sets the text ID
     pub fn id(mut self, id: usize) -> Self {
         self.data.id = id;
         self
     }
 
-    /// Sets the initial value for the [DynamicText]
+    /// Sets the initial dynamic text value
     pub fn initial_dynamic_text(mut self, text: &str) -> Self {
         self.initial_text = text.to_string();
         self
     }
 
-    /// Converts [DynamicText] into a [Bundle]
+    /// Builds [DynamicText] into a [Bundle]
     ///
-    /// This will be removed in a future version aiming to
+    /// This will take the `initial_text` field, wrap it in a [TextSpan], and set it
+    /// as a child of the bundle, so it can be queried and modified by a system
+    ///
+    /// **NOTE:** This will be removed in a future version aiming to
     /// make the [DynamicText] an actual [Bundle]
     pub fn build(self) -> impl Bundle {
         (
