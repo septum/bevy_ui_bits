@@ -15,8 +15,10 @@ pub struct Root {
 }
 
 impl Default for Root {
-    /// Creates a new [Root] with full width and height, centered,
-    /// and the flex direction set from top to bottom
+    /// Creates a new [Root] with:
+    /// - full width and height,
+    /// - centered content and items,
+    /// - and column flex direction.
     fn default() -> Self {
         Self {
             node: Node {
@@ -36,8 +38,10 @@ impl Default for Root {
 }
 
 impl Root {
-    /// Creates a new [Root] with full width and height, centered,
-    /// and the flex direction set from top to bottom
+    /// Creates a new [Root] with:
+    /// - full width and height,
+    /// - centered content and items,
+    /// - and column flex direction.
     pub fn new() -> Self {
         Root::default()
     }
