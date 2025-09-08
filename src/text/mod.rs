@@ -9,16 +9,16 @@ pub use simple::SimpleText;
 use bevy::prelude::*;
 
 /// Small font size
-const SIZE_SMALL: f32 = 18.0;
+const SIZE_SMALL: f32 = 20.0;
 
 /// Medium font size
-const SIZE_MEDIUM: f32 = 36.0;
+const SIZE_MEDIUM: f32 = 40.0;
 
 /// Large font size
-const SIZE_LARGE: f32 = 90.0;
+const SIZE_LARGE: f32 = 100.0;
 
 /// Extra large font size
-const SIZE_EXTRA_LARGE: f32 = 108.0;
+const SIZE_EXTRA_LARGE: f32 = 120.0;
 
 /// Common interface for the text bundles
 pub trait UiText: Default {

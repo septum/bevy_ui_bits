@@ -17,18 +17,16 @@ fn spawn_ui(mut commands: Commands) {
     let root = Root::new();
 
     // Container is the typical layout component
-    let main_container = Container::height(Val::Px(400.0)).justify_between();
+    let main_container = Container::height(Val::Px(500.0)).justify_between();
 
     // Customize components fluently using a builder-lite pattern
-    let title = EmbossedText::large("My Game", font)
-        .color(palettes::css::GOLD.into())
-        .shadow(palettes::css::MIDNIGHT_BLUE.into());
+    let title = EmbossedText::large("My Game", font).color(palettes::css::GOLD.into());
 
     // UiButton provides a button with opinionated settings
-    let play = UiButton::rectangle().background_color(palettes::css::MIDNIGHT_BLUE.into());
+    let play = UiButton::rectangle().background_color(palettes::css::GOLD.into());
     let play_text = EmbossedText::medium("Play", font);
 
-    let by = SimpleText::medium("By me", font);
+    let by = SimpleText::small("By me", font);
 
     // Use the new Spawn API to spawn the UI tree
     commands.spawn((

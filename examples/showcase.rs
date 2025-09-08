@@ -19,25 +19,28 @@ fn spawn_ui(mut commands: Commands) {
 
     let root = Root::new();
 
-    let top = Container::new();
-    let middle = Container::new().row().justify_between();
+    let top = Container::height(Val::Percent(30.0));
+    let middle = Container::height(Val::Percent(40.0))
+        .row()
+        .justify_between();
     let left = Container::width(Val::Percent(50.0))
         .background_color(palettes::css::DARK_BLUE.into())
         .justify_around();
     let right = Container::width(Val::Percent(50.0))
         .background_color(palettes::css::DARK_RED.into())
         .justify_around();
-    let bottom = Container::new().background_color(palettes::css::GOLDENROD.into());
+    let bottom =
+        Container::height(Val::Percent(30.0)).background_color(palettes::css::GOLDENROD.into());
 
     let title =
-        EmbossedText::large("bevy_ui_bits has:", font).color(palettes::css::GOLDENROD.into());
-    let simple_text = SimpleText::medium("Simple text,", font);
-    let embossed_text = EmbossedText::medium("Embossed text,", font);
-    let dynamic_text = DynamicTextBuilder::small("Dynamic text: ", font)
+        EmbossedText::large("bevy_ui_bits has", font).color(palettes::css::GOLDENROD.into());
+    let simple_text = SimpleText::medium("Simple text", font);
+    let embossed_text = EmbossedText::medium("Embossed text", font);
+    let dynamic_text = DynamicTextBuilder::medium("Dynamic text: ", font)
         .id(HEART_TEXT_ID)
         .initial_dynamic_text("0");
     let rectangle_button = UiButton::rectangle().background_color(palettes::css::GOLDENROD.into());
-    let rectangle_button_text = EmbossedText::medium("Buttons,", font);
+    let rectangle_button_text = EmbossedText::medium("Buttons", font);
     let square_button = UiButton::square()
         .id(HEART_BUTTON_ID)
         .background_color(palettes::css::MIDNIGHT_BLUE.into());
@@ -53,7 +56,7 @@ fn spawn_ui(mut commands: Commands) {
                 children![
                     (
                         left,
-                        children![simple_text, dynamic_text.build(), embossed_text]
+                        children![simple_text, embossed_text, dynamic_text.build()]
                     ),
                     (
                         right,

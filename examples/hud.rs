@@ -25,15 +25,13 @@ fn spawn_hud(mut commands: Commands) {
     let font = &Handle::default();
 
     let root = Root::new()
-        .padding(UiRect::all(Val::Px(30.0)))
+        .padding(UiRect::all(Val::Px(20.0)))
         .justify_between();
 
     let top = Container::height(Val::Auto).row().justify_between();
     let bottom = Container::height(Val::Auto);
 
-    let level = EmbossedText::medium("Level 1", font)
-        .color(palettes::css::GOLD.into())
-        .shadow(palettes::css::MIDNIGHT_BLUE.into());
+    let level = EmbossedText::medium("Level 1", font).color(palettes::css::GOLD.into());
     let jumps = DynamicTextBuilder::medium("Jumps: ", font)
         .initial_dynamic_text("0")
         .id(JUMPS_TEXT_ID);

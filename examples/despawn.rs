@@ -26,7 +26,7 @@ fn spawn_main_menu(mut commands: Commands) {
 
     let root = Root::new();
 
-    let container = Container::height(Val::Px(400.0)).justify_between();
+    let container = Container::height(Val::Px(450.0)).justify_between();
     let top = Container::height(Val::Auto);
     let bottom = Container::height(Val::Px(200.0)).justify_between();
     let actions = Container::height(Val::Auto);
