@@ -33,7 +33,7 @@ fn spawn_hud(mut commands: Commands) {
         .justify_between();
     let bottom = Container::new();
 
-    let level = EmbossedText::medium("Level 1", font).color(palettes::css::GOLD.into());
+    let level = EmbossedText::medium("Level 1", font).color(palettes::css::GOLDENROD.into());
     let jumps = DynamicTextBuilder::medium("Jumps: ", font)
         .initial_dynamic_text("0")
         .id(JUMPS_TEXT_ID);

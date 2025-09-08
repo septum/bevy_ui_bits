@@ -41,10 +41,10 @@ fn spawn_main_menu(mut commands: Commands) {
     let actions = Container::new();
     let footer = Container::new();
 
-    let title = EmbossedText::extra_large("My\nGame", font).color(palettes::css::GOLD.into());
+    let title = EmbossedText::extra_large("My\nGame", font).color(palettes::css::GOLDENROD.into());
     let play = UiButton::rectangle()
         .id(PLAY_BUTTON_ID)
-        .background_color(palettes::css::GOLD.into());
+        .background_color(palettes::css::GOLDENROD.into());
     let play_text = EmbossedText::medium("Play", font);
     let quit = UiButton::rectangle().id(QUIT_BUTTON_ID);
     let quit_text = EmbossedText::medium("Quit", font);
@@ -119,7 +119,7 @@ fn update_buttons(
 ) {
     for (button_data, mut background_color) in &mut query {
         if button_data.id == selected_button.id {
-            *background_color = palettes::css::GOLD.into();
+            *background_color = palettes::css::GOLDENROD.into();
         } else {
             *background_color = Color::NONE.into();
         }

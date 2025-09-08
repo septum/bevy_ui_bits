@@ -20,10 +20,10 @@ fn spawn_ui(mut commands: Commands) {
     let main_container = Container::height(Val::Px(500.0)).justify_between();
 
     // Customize components fluently using a builder-lite pattern
-    let title = EmbossedText::large("My Game", font).color(palettes::css::GOLD.into());
+    let title = EmbossedText::large("My Game", font).color(palettes::css::GOLDENROD.into());
 
     // UiButton provides a button with opinionated settings
-    let play = UiButton::rectangle().background_color(palettes::css::GOLD.into());
+    let play = UiButton::rectangle().background_color(palettes::css::GOLDENROD.into());
     let play_text = EmbossedText::medium("Play", font);
 
     let by = SimpleText::small("By me", font);
