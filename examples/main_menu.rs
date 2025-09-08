@@ -36,10 +36,10 @@ fn spawn_main_menu(mut commands: Commands) {
 
     let root = Root::new();
     let container = Container::height(Val::Px(550.0)).justify_between();
-    let top = Container::size(Val::Auto, Val::Auto);
+    let top = Container::new();
     let bottom = Container::height(Val::Px(200.0)).justify_between();
-    let actions = Container::size(Val::Auto, Val::Auto);
-    let footer = Container::size(Val::Auto, Val::Auto);
+    let actions = Container::new();
+    let footer = Container::new();
 
     let title = EmbossedText::extra_large("My\nGame", font).color(palettes::css::GOLD.into());
     let play = UiButton::rectangle()

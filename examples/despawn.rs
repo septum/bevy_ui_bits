@@ -27,10 +27,10 @@ fn spawn_main_menu(mut commands: Commands) {
     let root = Root::new();
 
     let container = Container::height(Val::Px(450.0)).justify_between();
-    let top = Container::height(Val::Auto);
+    let top = Container::new();
     let bottom = Container::height(Val::Px(200.0)).justify_between();
-    let actions = Container::height(Val::Auto);
-    let footer = Container::height(Val::Auto);
+    let actions = Container::new();
+    let footer = Container::new();
 
     let title = EmbossedText::extra_large("Game Over", font).color(palettes::css::TEAL.into());
     let despawn = UiButton::rectangle()

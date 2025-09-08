@@ -20,17 +20,17 @@ fn spawn_ui(mut commands: Commands) {
     let root = Root::new();
 
     let top = Container::height(Val::Percent(30.0));
-    let middle = Container::height(Val::Percent(40.0))
+    let middle = Container::size(Val::Percent(100.0), Val::Percent(40.0))
         .row()
         .justify_between();
-    let left = Container::width(Val::Percent(50.0))
+    let left = Container::size(Val::Percent(50.0), Val::Percent(100.0))
         .background_color(palettes::css::DARK_BLUE.into())
         .justify_around();
-    let right = Container::width(Val::Percent(50.0))
+    let right = Container::size(Val::Percent(50.0), Val::Percent(100.0))
         .background_color(palettes::css::DARK_RED.into())
         .justify_around();
-    let bottom =
-        Container::height(Val::Percent(30.0)).background_color(palettes::css::GOLDENROD.into());
+    let bottom = Container::size(Val::Percent(100.0), Val::Percent(30.0))
+        .background_color(palettes::css::GOLDENROD.into());
 
     let title =
         EmbossedText::large("bevy_ui_bits has", font).color(palettes::css::GOLDENROD.into());

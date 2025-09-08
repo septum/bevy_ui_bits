@@ -28,8 +28,10 @@ fn spawn_hud(mut commands: Commands) {
         .padding(UiRect::all(Val::Px(20.0)))
         .justify_between();
 
-    let top = Container::height(Val::Auto).row().justify_between();
-    let bottom = Container::height(Val::Auto);
+    let top = Container::width(Val::Percent(100.0))
+        .row()
+        .justify_between();
+    let bottom = Container::new();
 
     let level = EmbossedText::medium("Level 1", font).color(palettes::css::GOLD.into());
     let jumps = DynamicTextBuilder::medium("Jumps: ", font)

@@ -10,12 +10,15 @@ pub struct Container {
 }
 
 impl Default for Container {
-    /// Creates a new [Container] with full width and height
+    /// Creates a new [Container] with:
+    /// - auto width and height,
+    /// - centered content and items,
+    /// - and column flex direction.
     fn default() -> Self {
         Container {
             node: Node {
-                height: Val::Percent(100.0),
-                width: Val::Percent(100.0),
+                height: Val::Auto,
+                width: Val::Auto,
                 flex_direction: FlexDirection::Column,
                 justify_content: JustifyContent::Center,
                 align_items: AlignItems::Center,
@@ -29,8 +32,10 @@ impl Default for Container {
 }
 
 impl Container {
-    /// Creates a new [Container] with full width and height, centered,
-    /// and the flex direction set from top to bottom
+    /// Creates a new [Container] with:
+    /// - auto width and height,
+    /// - centered content and items,
+    /// - and column flex direction.
     pub fn new() -> Self {
         Container::default()
     }
