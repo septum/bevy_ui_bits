@@ -28,50 +28,6 @@ impl Default for EmbossedText {
 }
 
 impl UiText for EmbossedText {
-    fn small(value: &str, font: &Handle<Font>) -> Self {
-        Self::default()
-            .font(TextFont {
-                font: font.clone(),
-                font_size: super::SIZE_SMALL,
-                ..default()
-            })
-            .text(Text::new(value))
-            .relief(1.0)
-    }
-
-    fn medium(value: &str, font: &Handle<Font>) -> Self {
-        Self::default()
-            .font(TextFont {
-                font: font.clone(),
-                font_size: super::SIZE_MEDIUM,
-                ..default()
-            })
-            .text(Text::new(value))
-            .relief(2.0)
-    }
-
-    fn large(value: &str, font: &Handle<Font>) -> Self {
-        Self::default()
-            .font(TextFont {
-                font: font.clone(),
-                font_size: super::SIZE_LARGE,
-                ..default()
-            })
-            .text(Text::new(value))
-            .relief(5.0)
-    }
-
-    fn extra_large(value: &str, font: &Handle<Font>) -> Self {
-        Self::default()
-            .font(TextFont {
-                font: font.clone(),
-                font_size: super::SIZE_EXTRA_LARGE,
-                ..default()
-            })
-            .text(Text::new(value))
-            .relief(6.0)
-    }
-
     fn color(mut self, color: TextColor) -> Self {
         self.color = color;
         self
@@ -89,6 +45,26 @@ impl UiText for EmbossedText {
 }
 
 impl EmbossedText {
+    /// Create a small text variant
+    pub fn small(value: &str, font: &Handle<Font>) -> Self {
+        <Self as UiText>::small(value, font).relief(1.0)
+    }
+
+    /// Create a medium text variant
+    pub fn medium(value: &str, font: &Handle<Font>) -> Self {
+        <Self as UiText>::medium(value, font).relief(2.0)
+    }
+
+    /// Create a large text variant
+    pub fn large(value: &str, font: &Handle<Font>) -> Self {
+        <Self as UiText>::large(value, font).relief(5.0)
+    }
+
+    /// Create a extra large text variant
+    pub fn extra_large(value: &str, font: &Handle<Font>) -> Self {
+        <Self as UiText>::extra_large(value, font).relief(6.0)
+    }
+
     /// Sets the shadow color of the text
     pub fn shadow(mut self, color: Color) -> Self {
         self.shadow.color = color;
