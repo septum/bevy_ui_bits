@@ -15,7 +15,7 @@ impl Default for SimpleText {
     fn default() -> Self {
         Self {
             text: Text::new(""),
-            font: TextFont::from_font_size(super::SIZE_MEDIUM),
+            font: TextFont::from_font_size(super::DEFAULT_SIZE_MEDIUM),
             color: TextColor(Color::WHITE),
             layout: TextLayout::new_with_justify(JustifyText::Center),
         }
@@ -28,8 +28,13 @@ impl UiText for SimpleText {
         self
     }
 
-    fn font(mut self, font: TextFont) -> Self {
-        self.font = font;
+    fn font(mut self, font: &Handle<Font>) -> Self {
+        self.font.font = font.clone();
+        self
+    }
+
+    fn size(mut self, size: f32) -> Self {
+        self.font.font_size = size;
         self
     }
 
