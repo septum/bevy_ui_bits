@@ -120,8 +120,6 @@ This project is dual-licensed under either:
 
 at your option.
 
-With the exception of the Fira Mono Font, which has its own license.
-
 ## Contribution
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
