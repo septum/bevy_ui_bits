@@ -1,4 +1,4 @@
-use bevy::{color::palettes, input::keyboard::KeyboardInput, prelude::*};
+use bevy::{color::palettes, input::keyboard::KeyboardInput, prelude::*, text::LineHeight};
 use bevy_ui_bits::*;
 
 const PLAY_BUTTON_ID: usize = 1;
@@ -41,7 +41,9 @@ fn spawn_main_menu(mut commands: Commands) {
     let actions = Container::new();
     let footer = Container::new();
 
-    let title = EmbossedText::extra_large("My\nGame", font).color(palettes::css::GOLDENROD.into());
+    let title = EmbossedText::extra_large("My\nGame", font)
+        .color(palettes::css::GOLDENROD.into())
+        .line_height(LineHeight::RelativeToFont(1.0));
     let play = UiButton::rectangle()
         .id(PLAY_BUTTON_ID)
         .background_color(palettes::css::GOLDENROD.into());
