@@ -47,4 +47,14 @@ impl UiText for SimpleText {
         self.font.line_height = line_height;
         self
     }
+
+    fn justify(mut self, justify: JustifyText) -> Self {
+        self.layout.justify = justify;
+        self
+    }
+
+    fn line_break(mut self, line_break: LineBreak) -> Self {
+        self.layout.linebreak = line_break;
+        self
+    }
 }
