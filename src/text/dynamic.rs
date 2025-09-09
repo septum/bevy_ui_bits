@@ -17,7 +17,8 @@ pub struct DynamicTextBuilder {
     text: Text,
     font: TextFont,
     color: TextColor,
-    initial_text: String,
+    layout: TextLayout,
+    dynamic_text: String,
 }
 
 impl Default for DynamicTextBuilder {
@@ -27,7 +28,8 @@ impl Default for DynamicTextBuilder {
             text: Text::new(""),
             font: TextFont::from_font_size(super::DEFAULT_SIZE_MEDIUM),
             color: TextColor(Color::WHITE),
-            initial_text: String::new(),
+            layout: TextLayout::new_with_justify(JustifyText::Center),
+            dynamic_text: String::new(),
         }
     }
 }
@@ -68,13 +70,13 @@ impl DynamicTextBuilder {
 
     /// Sets the initial dynamic text value
     pub fn initial_dynamic_text(mut self, text: &str) -> Self {
-        self.initial_text = text.to_string();
+        self.dynamic_text = text.to_string();
         self
     }
 
     /// Builds [DynamicText] into a [Bundle]
     ///
-    /// This will take the `initial_text` field, wrap it in a [TextSpan], and set it
+    /// This will take the `dynamic_text` field, wrap it in a [TextSpan], and set it
     /// as a child of the bundle, so it can be queried and modified by a system
     ///
     /// **NOTE:** This will be removed in a future version aiming to
@@ -85,8 +87,8 @@ impl DynamicTextBuilder {
             self.text,
             self.font.clone(),
             self.color,
-            TextLayout::new_with_justify(JustifyText::Center),
-            children![(self.font, self.color, TextSpan::new(self.initial_text))],
+            self.layout,
+            children![(self.font, self.color, TextSpan::new(self.dynamic_text))],
         )
     }
 }
