@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, text::LineHeight};
 
 use super::UiText;
 
@@ -45,6 +45,11 @@ impl UiText for DynamicTextBuilder {
 
     fn text(mut self, text: Text) -> Self {
         self.text = text;
+        self
+    }
+
+    fn line_height(mut self, line_height: LineHeight) -> Self {
+        self.font.line_height = line_height;
         self
     }
 }

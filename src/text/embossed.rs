@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, text::LineHeight};
 
 use super::UiText;
 
@@ -34,12 +34,17 @@ impl UiText for EmbossedText {
     }
 
     fn font(mut self, font: TextFont) -> Self {
-        self.font = font.clone();
+        self.font = font;
         self
     }
 
     fn text(mut self, text: Text) -> Self {
-        self.text = text.clone();
+        self.text = text;
+        self
+    }
+
+    fn line_height(mut self, line_height: LineHeight) -> Self {
+        self.font.line_height = line_height;
         self
     }
 }

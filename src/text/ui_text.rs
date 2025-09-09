@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, text::LineHeight};
 
 /// Small font size
 pub(super) const SIZE_SMALL: f32 = 20.0;
@@ -66,4 +66,7 @@ pub trait UiText: Default {
 
     /// Sets the content of the [UiText]
     fn text(self, text: Text) -> Self;
+
+    /// Sets the line height of the [UiText]
+    fn line_height(self, line_height: LineHeight) -> Self;
 }
