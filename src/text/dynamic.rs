@@ -28,7 +28,7 @@ impl Default for DynamicTextBuilder {
             text: Text::new(""),
             font: TextFont::from_font_size(super::DEFAULT_SIZE_MEDIUM),
             color: TextColor(Color::WHITE),
-            layout: TextLayout::new_with_justify(JustifyText::Center),
+            layout: TextLayout::new_with_justify(Justify::Center),
             dynamic_text: String::new(),
         }
     }
@@ -60,7 +60,7 @@ impl UiText for DynamicTextBuilder {
         self
     }
 
-    fn justify(mut self, justify: JustifyText) -> Self {
+    fn justify(mut self, justify: Justify) -> Self {
         self.layout.justify = justify;
         self
     }

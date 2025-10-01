@@ -62,7 +62,7 @@ pub trait UiText: Default {
     fn line_height(self, line_height: LineHeight) -> Self;
 
     /// Sets the justification of the [UiText]
-    fn justify(self, justify: JustifyText) -> Self;
+    fn justify(self, justify: Justify) -> Self;
 
     /// Sets the line break of the [UiText]
     fn line_break(self, line_break: LineBreak) -> Self;

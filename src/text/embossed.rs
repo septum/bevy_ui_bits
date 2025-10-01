@@ -18,7 +18,7 @@ impl Default for EmbossedText {
             text: Text::new(""),
             font: TextFont::from_font_size(super::DEFAULT_SIZE_MEDIUM),
             color: TextColor(Color::WHITE),
-            layout: TextLayout::new_with_justify(JustifyText::Center),
+            layout: TextLayout::new_with_justify(Justify::Center),
             shadow: TextShadow {
                 offset: Vec2::splat(2.0),
                 color: Color::BLACK,
@@ -53,7 +53,7 @@ impl UiText for EmbossedText {
         self
     }
 
-    fn justify(mut self, justify: JustifyText) -> Self {
+    fn justify(mut self, justify: Justify) -> Self {
         self.layout.justify = justify;
         self
     }
