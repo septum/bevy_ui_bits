@@ -9,6 +9,7 @@ pub struct SimpleText {
     font: TextFont,
     color: TextColor,
     layout: TextLayout,
+    line_height: LineHeight,
 }
 
 impl Default for SimpleText {
@@ -18,6 +19,7 @@ impl Default for SimpleText {
             font: TextFont::from_font_size(super::DEFAULT_SIZE_MEDIUM),
             color: TextColor(Color::WHITE),
             layout: TextLayout::new_with_justify(Justify::Center),
+            line_height: LineHeight::default(),
         }
     }
 }
@@ -44,7 +46,7 @@ impl UiText for SimpleText {
     }
 
     fn line_height(mut self, line_height: LineHeight) -> Self {
-        self.font.line_height = line_height;
+        self.line_height = line_height;
         self
     }
 

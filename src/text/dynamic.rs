@@ -19,6 +19,7 @@ pub struct DynamicTextBuilder {
     color: TextColor,
     layout: TextLayout,
     dynamic_text: String,
+    line_height: LineHeight,
 }
 
 impl Default for DynamicTextBuilder {
@@ -30,6 +31,7 @@ impl Default for DynamicTextBuilder {
             color: TextColor(Color::WHITE),
             layout: TextLayout::new_with_justify(Justify::Center),
             dynamic_text: String::new(),
+            line_height: LineHeight::default(),
         }
     }
 }
@@ -56,7 +58,7 @@ impl UiText for DynamicTextBuilder {
     }
 
     fn line_height(mut self, line_height: LineHeight) -> Self {
-        self.font.line_height = line_height;
+        self.line_height = line_height;
         self
     }
 

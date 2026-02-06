@@ -10,6 +10,7 @@ pub struct EmbossedText {
     color: TextColor,
     layout: TextLayout,
     shadow: TextShadow,
+    line_height: LineHeight,
 }
 
 impl Default for EmbossedText {
@@ -23,6 +24,7 @@ impl Default for EmbossedText {
                 offset: Vec2::splat(2.0),
                 color: Color::BLACK,
             },
+            line_height: LineHeight::default(),
         }
     }
 }
@@ -49,7 +51,7 @@ impl UiText for EmbossedText {
     }
 
     fn line_height(mut self, line_height: LineHeight) -> Self {
-        self.font.line_height = line_height;
+        self.line_height = line_height;
         self
     }
 
